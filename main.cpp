@@ -16,7 +16,9 @@ int miniunsuc8 = 0;
 int minisuc10 = 0;
 int miniunsuc10 = 0;
 
-bool QueensLasVegas(int n, vector<int> columns, ostream& outfile,ostream& outfilemini){
+
+
+bool QueensLasVegas(int n, vector<int> columns, ostream& outfile,vector<string> &suc,vector<string> &unsuc){
 
 	string result = "";
 	bool successfull = true;
@@ -120,31 +122,48 @@ bool QueensLasVegas(int n, vector<int> columns, ostream& outfile,ostream& outfil
 
 	if(successfull){
 		outfile << "Successful" << endl;
+		
 		if(n==6){
 			minisuc6++;
 			if(minisuc6<3){
-				outfilemini<<"n="<<n<<", Successful:"<<endl;
+				string text="n=" + to_string(n) +", Successful:";
+				string t;
+				//outfilemini<<"n="<<n<<", Successful:"<<endl;
+				
 				for(int i=0; i<mini.size(); i++){
-					outfilemini << mini.at(i) << "\n";
+					//outfilemini << mini.at(i) << "\n";
+					t = t + mini.at(i) + "\n";
 				}
+				suc.push_back(text);
+				suc.push_back(t);
 			}
 		}
 		if(n==8){
 			minisuc8++;
 			if(minisuc8<3){
-				outfilemini<<"n="<<n<<", Successful:"<<endl;
+				string text="n=" + to_string(n) +", Successful:";
+				string t;
+				//outfilemini<<"n="<<n<<", Successful:"<<endl;
 				for(int i=0; i<mini.size(); i++){
-					outfilemini << mini.at(i) << "\n";
+					//outfilemini << mini.at(i) << "\n";
+					t = t + mini.at(i) + "\n";
 				}
+				suc.push_back(text);
+				suc.push_back(t);
 			}
 		}
 		if(n==10){
 			minisuc10++;
 			if(minisuc10<3){
-				outfilemini<<"n="<<n<<", Successful:"<<endl;
+				string text="n=" + to_string(n) +", Successful:";
+				string t;
+				//outfilemini<<"n="<<n<<", Successful:"<<endl;
 				for(int i=0; i<mini.size(); i++){
-					outfilemini << mini.at(i) << "\n";
+					//outfilemini << mini.at(i) << "\n";
+					t = t + mini.at(i) + "\n";
 				}
+				suc.push_back(text);
+				suc.push_back(t);
 			}
 		}
 	} else {
@@ -152,31 +171,47 @@ bool QueensLasVegas(int n, vector<int> columns, ostream& outfile,ostream& outfil
 		if(n==6){
 			miniunsuc6++;
 			if(miniunsuc6<3){
-				outfilemini<<"n="<<n<<", Unsuccessful:"<<endl;
+				string text="n=" + to_string(n) +", Unsuccessful:";
+				string t;
+				//outfilemini<<"n="<<n<<", Unsuccessful:"<<endl;
 				for(int i=0; i<mini.size(); i++){
-					outfilemini << mini.at(i) << "\n";
+					//outfilemini << mini.at(i) << "\n";
+					t = t + mini.at(i) + "\n";
 				}
+				unsuc.push_back(text);
+				unsuc.push_back(t);
 			}
 		}
 		if(n==8){
 			miniunsuc8++;
 			if(miniunsuc8<3){
-				outfilemini<<"n="<<n<<", Unsuccessful:"<<endl;
+				string text="n=" + to_string(n) +", Unsuccessful:";
+				string t;
+				//outfilemini<<"n="<<n<<", Unsuccessful:"<<endl;
 				for(int i=0; i<mini.size(); i++){
-					outfilemini << mini.at(i) << "\n";
+					//outfilemini << mini.at(i) << "\n";
+					t = t + mini.at(i) + "\n";
 				}
+				unsuc.push_back(text);
+				unsuc.push_back(t);
 			}
 		}
 		if(n==10){
 			miniunsuc10++;
 			if(miniunsuc10<3){
-				outfilemini<<"n="<<n<<", Unsuccessful:"<<endl;
+				string text="n=" + to_string(n) +", Unsuccessful:";
+				string t;
+				//outfilemini<<"n="<<n<<", Unsuccessful:"<<endl;
 				for(int i=0; i<mini.size(); i++){
-					outfilemini << mini.at(i) << "\n";
+					//outfilemini << mini.at(i) << "\n";
+					t = t + mini.at(i) + "\n";
 				}
+				unsuc.push_back(text);
+				unsuc.push_back(t);
 			}
 		}
 	}
+	
 	
 
 	return successfull;
@@ -192,15 +227,30 @@ int main(int argc, char const *argv[]) {
     outfile8.open("results_8.txt", fstream::out);
 	outfile10.open("results_10.txt", fstream::out);
 	outfilemini.open("results_mini.txt", fstream::out);
+
+	vector<string> suc;
+	vector<string> unsuc;
+
 	
 	int n = 6;
 	int nofSuc6 = 0;
 	vector<int> columnsfor6(n);
 	for(int i=0; i<10000; i++){
-		if(QueensLasVegas(n, columnsfor6, outfile6,outfilemini)){
+		if(QueensLasVegas(n, columnsfor6, outfile6,suc,unsuc)){
 			nofSuc6++;
 		}
 	}
+	
+	for(int i=0; i<suc.size(); i++){
+		outfilemini<< suc[i]<<endl;
+	}
+	for(int i=0; i<unsuc.size(); i++){
+		outfilemini<< unsuc[i]<<endl;
+	}
+
+	suc.clear();
+	unsuc.clear();
+
 
 	cout << "LasVegas Algorithm With n=" << 6 << endl;
 	cout << "Number of successfull placements is " << nofSuc6 << endl;
@@ -211,10 +261,20 @@ int main(int argc, char const *argv[]) {
 	int nofSuc8 = 0;
 	vector<int> columnsfor8(n);
 	for(int i=0; i<10000; i++){
-		if(QueensLasVegas(n, columnsfor8, outfile8,outfilemini)){
+		if(QueensLasVegas(n, columnsfor8, outfile8,suc,unsuc)){
 			nofSuc8++;
 		}
 	}
+
+	for(int i=0; i<suc.size(); i++){
+		outfilemini<< suc[i]<<endl;
+	}
+	for(int i=0; i<unsuc.size(); i++){
+		outfilemini<< unsuc[i]<<endl;
+	}
+
+	suc.clear();
+	unsuc.clear();
 
 	cout << "LasVegas Algorithm With n=" << 8 << endl;
 	cout << "Number of successful placements is " << nofSuc8 << endl;
@@ -225,10 +285,19 @@ int main(int argc, char const *argv[]) {
 	int nofSuc10 = 0;
 	vector<int> columnsfor10(n);
 	for(int i=0; i<10000; i++){
-		if(QueensLasVegas(n, columnsfor10, outfile10,outfilemini)){
+		if(QueensLasVegas(n, columnsfor10, outfile10,suc,unsuc)){
 			nofSuc10++;
 		}
 	}
+
+	for(int i=0; i<suc.size(); i++){
+		outfilemini<< suc[i]<<endl;
+	}
+	for(int i=0; i<unsuc.size(); i++){
+		outfilemini<< unsuc[i]<<endl;
+	}
+
+	
 
     cout << "LasVegas Algorithm With n=" << 10 << endl;
 	cout << "Number of successful placements is " << nofSuc10 << endl;
