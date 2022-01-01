@@ -53,7 +53,7 @@ bool QueensLasVegas(int n, vector<int> columns, ostream& outfile,vector<string> 
 	mini.push_back(a2 + b2);
 	
 	
-	srand((unsigned int)time(NULL));
+	
 	while(newAvailableColumns.size() >= 0 && r<=n-1){
 		if(newAvailableColumns.size() == 0){
 			successfull = false;
@@ -61,6 +61,7 @@ bool QueensLasVegas(int n, vector<int> columns, ostream& outfile,vector<string> 
 		}
 		set<int> forbidden;
 		int c = newAvailableColumns[rand() % newAvailableColumns.size()];
+
 
 		columns[r] = c;
 		r++;
@@ -84,6 +85,7 @@ bool QueensLasVegas(int n, vector<int> columns, ostream& outfile,vector<string> 
 		std::set_difference(availableColumns.begin(), availableColumns.end(), forbidden.begin(), forbidden.end(), std::inserter(result, result.end()));
 		newAvailableColumns.assign(result.begin(), result.end());
 		string x ="Step " + to_string(r+1) + ": Columns: ";
+		
 		outfile << "Step " << r+1 << ": Columns: ";
 		string y;
 		for(int i=0; i<columns.size(); i++){
@@ -218,6 +220,7 @@ bool QueensLasVegas(int n, vector<int> columns, ostream& outfile,vector<string> 
 }
 
 int main(int argc, char const *argv[]) {
+	srand((unsigned int)time(NULL));
 
 	ofstream outfile6;
 	ofstream outfile8;
