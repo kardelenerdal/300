@@ -145,11 +145,9 @@ bool solveNQUtil(vector<vector<int>>& board, int k) {
 
 bool solveNQ(int n, int k, vector<int> columns) {
 	if(!QueensLasVegas2(n, k, columns)){
-		printf("Solution does not exist \n");
 		return false;
 	}
 
-    //int board[n][n];
     vector<vector<int>> board;
 	board.resize(n, vector<int>(n, 0));
 
@@ -158,7 +156,6 @@ bool solveNQ(int n, int k, vector<int> columns) {
     }
 
     if (solveNQUtil(board, k) == false) {
-        printf("Solution does not exist \n");
         return false;
     }
     
@@ -177,7 +174,7 @@ int main(int argc, char const *argv[]) {
 	cout << "--------------- 6 ---------------" << endl;
 	for(int k=0; k<6; k++){
 		for(int i = 0; i<10000; i++){
-			if(QueensLasVegas2(n, k, columnsfor6)) {
+			if(solveNQ(n, k, columnsfor6)) {
 				nofSuc6++;
 			}
 		}
@@ -195,7 +192,7 @@ int main(int argc, char const *argv[]) {
 	cout << "--------------- 8 ---------------" << endl;
 	for(int k=0; k<8; k++){
 		for(int i = 0; i<10000; i++){
-			if(QueensLasVegas2(n, k, columnsfor8)) {
+			if(solveNQ(n, k, columnsfor8)) {
 				nofSuc8++;
 			}
 		}
@@ -212,7 +209,7 @@ int main(int argc, char const *argv[]) {
 	cout << "--------------- 10 ---------------" << endl;
 	for(int k=0; k<10; k++){
 		for(int i = 0; i<10000; i++){
-			if(QueensLasVegas2(n, k, columnsfor10)) {
+			if(solveNQ(n, k, columnsfor10)) {
 				nofSuc10++;
 			}
 		}
